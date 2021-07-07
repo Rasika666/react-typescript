@@ -3,7 +3,7 @@ import {Action} from '../actions';
 import { Dispatch } from "react";
 import {ActionType} from '../action-types'
 
-export const SearchRepository = (term: string) => {
+export const searchRepository = (term: string) => {
     return async (dispatch: Dispatch<Action>) => {
 
         dispatch({
@@ -11,14 +11,14 @@ export const SearchRepository = (term: string) => {
         })
 
         try {
-            const {data} = await axios.get('https://registry.npmjs.org/-/v1/search/', {
+            const {data} = await axios.get('https://registry.npmjs.org/-/v1/search', {
                 params: {
                     text: term
                 }
             });
 
             const names = data.objects.map((result: any) => {
-                return result.packages.name;
+                return result.package.name;
             })
 
             dispatch({
